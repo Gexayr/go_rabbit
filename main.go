@@ -5,7 +5,9 @@ import (
     "log"
     "net/http"
     "database" // Import the database package
-    "./handlers" // Import the handlers package
+//     "github.com/Gexayr/go_rabbit/blob/main/database"
+    "github.com/Gexayr/go_rabbit/handlers"
+//     "./handlers" // Import the handlers package
 )
 
 func homePage(w http.ResponseWriter, r *http.Request) {
@@ -37,7 +39,7 @@ err := database.InitDB()
     }
 
     // Set up HTTP routes
-    setupRoutes()
+//     setupRoutes()
 
     // Start the HTTP server
     fmt.Println("Server is running on port 8080")
