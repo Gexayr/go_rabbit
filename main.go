@@ -1,77 +1,46 @@
 package main
 
 import (
-	"fmt"
-	"log"
-	"net"
-	"net/http"
-	"strings"
+    "fmt"
+    "log"
+    "net/http"
+    "database" // Import the database package
+    "./handlers" // Import the handlers package
 )
 
-type Websocket struct {
-	clients    map[net.Conn]bool
-	register   chan net.Conn
-	unregister chan net.Conn
+func homePage(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Home HTTP")
 }
 
-func NewWebsocket() *Websocket {
-	return &Websocket{
-		clients:    make(map[net.Conn]bool),
-		register:   make(chan net.Conn),
-		unregister: make(chan net.Conn),
-	}
+func wsEndpoint(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Hello WebSocket")
 }
 
-func (ws *Websocket) handleConnections() {
-	for {
-		select {
-		case conn := <-ws.register:
-			ws.clients[conn] = true
-		case conn := <-ws.unregister:
-			if _, ok := ws.clients[conn]; ok {
-				conn.Close()
-				delete(ws.clients, conn)
-			}
-		}
-	}
-}
+func setupRoutes() {
+    http.HandleFunc("/", homePage)
+    http.HandleFunc("/ws", wsEndpoint)
 
-func (ws *Websocket) serveWs(w http.ResponseWriter, r *http.Request) {
-	hj, ok := w.(http.Hijacker)
-	if !ok {
-		http.Error(w, "Hijacking not supported", http.StatusInternalServerError)
-		return
-	}
-	conn, _, err := hj.Hijack()
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	defer conn.Close()
+    // Game handlers
+    http.HandleFunc("/start_game", handlers.StartGameHandler)
+    http.HandleFunc("/shoot_ball", handlers.ShootBallHandler)
 
-	ws.register <- conn
-	defer func() { ws.unregister <- conn }()
-
-	for {
-		message := make([]byte, 1024)
-		_, err := conn.Read(message)
-		if err != nil {
-			if strings.Contains(err.Error(), "use of closed network connection") {
-				return
-			}
-			log.Println(err)
-			return
-		}
-		// Обработка полученного сообщения
-	}
+    // User handlers
+    http.HandleFunc("/register", handlers.RegisterHandler)
+    http.HandleFunc("/authenticate", handlers.AuthenticateHandler)
 }
 
 func main() {
-	websocket := NewWebsocket()
-	go websocket.handleConnections()
+    fmt.Println("Hello World")
+err := database.InitDB()
+    if err != nil {
+        log.Fatalf("Failed to connect to the database: %v", err)
+    }
 
-	http.HandleFunc("/ws", websocket.serveWs)
+    // Set up HTTP routes
+    setupRoutes()
 
-	fmt.Println("Server started on :8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+    // Start the HTTP server
+    fmt.Println("Server is running on port 8080")
+    log.Fatal(http.ListenAndServe(":8080", nil))
 }
+
