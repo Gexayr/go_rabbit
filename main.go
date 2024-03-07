@@ -4,10 +4,8 @@ import (
     "fmt"
     "log"
     "net/http"
-    "database" // Import the database package
-//     "github.com/Gexayr/go_rabbit/blob/main/database"
-    "github.com/Gexayr/go_rabbit/handlers"
-//     "./handlers" // Import the handlers package
+    "github.com/Gexayr/go_rabbit/database" // Import the database package
+//     "github.com/Gexayr/go_rabbit/handlers"
 )
 
 func homePage(w http.ResponseWriter, r *http.Request) {
@@ -23,19 +21,22 @@ func setupRoutes() {
     http.HandleFunc("/ws", wsEndpoint)
 
     // Game handlers
-    http.HandleFunc("/start_game", handlers.StartGameHandler)
-    http.HandleFunc("/shoot_ball", handlers.ShootBallHandler)
-
-    // User handlers
-    http.HandleFunc("/register", handlers.RegisterHandler)
-    http.HandleFunc("/authenticate", handlers.AuthenticateHandler)
+//     http.HandleFunc("/start_game", handlers.StartGameHandler)
+//     http.HandleFunc("/shoot_ball", handlers.ShootBallHandler)
+//
+//     // User handlers
+//     http.HandleFunc("/register", handlers.RegisterHandler)
+//     http.HandleFunc("/authenticate", handlers.AuthenticateHandler)
 }
 
 func main() {
     fmt.Println("Hello World")
-err := database.InitDB()
+    err := database.InitDB()
     if err != nil {
         log.Fatalf("Failed to connect to the database: %v", err)
+    } else {
+            log.Fatalf("Success:")
+
     }
 
     // Set up HTTP routes
