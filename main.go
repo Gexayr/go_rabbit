@@ -4,46 +4,53 @@ import (
     "fmt"
     "log"
     "net/http"
-    "github.com/Gexayr/go_rabbit/database" // Import the database package
-//     "github.com/Gexayr/go_rabbit/handlers"
 )
 
-func homePage(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "Home HTTP")
+// WebSocketHandler обрабатывает WebSocket соединения.
+func WebSocketHandler(w http.ResponseWriter, r *http.Request) {
+    // Код для обработки WebSocket соединения
+    fmt.Fprintf(w, "WebSocket соединение установлено!")
 }
 
-func wsEndpoint(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "Hello WebSocket")
+// StartGameHandler обрабатывает запрос на начало игры.
+func StartGameHandler(w http.ResponseWriter, r *http.Request) {
+    // Код для начала новой игры
+    fmt.Fprintf(w, "Игра начата!")
+}
+
+// ShootBallHandler обрабатывает запрос на бросок мяча.
+func ShootBallHandler(w http.ResponseWriter, r *http.Request) {
+    // Код для броска мяча
+    fmt.Fprintf(w, "Мяч брошен!")
+}
+
+// AuthenticateHandler обрабатывает запрос на аутентификацию пользователя.
+func AuthenticateHandler(w http.ResponseWriter, r *http.Request) {
+    // Код для аутентификации пользователя
+    fmt.Fprintf(w, "Пользователь аутентифицирован!")
+}
+
+// RegisterHandler обрабатывает запрос на регистрацию нового пользователя.
+func RegisterHandler(w http.ResponseWriter, r *http.Request) {
+    // Код для регистрации нового пользователя
+    fmt.Fprintf(w, "Новый пользователь зарегистрирован!")
 }
 
 func setupRoutes() {
-    http.HandleFunc("/", homePage)
-    http.HandleFunc("/ws", wsEndpoint)
+    // Для WebSocket соединения
+    http.HandleFunc("/ws", WebSocketHandler)
 
-    // Game handlers
-//     http.HandleFunc("/start_game", handlers.StartGameHandler)
-//     http.HandleFunc("/shoot_ball", handlers.ShootBallHandler)
-//
-//     // User handlers
-//     http.HandleFunc("/register", handlers.RegisterHandler)
-//     http.HandleFunc("/authenticate", handlers.AuthenticateHandler)
+    // Для игровых запросов
+    http.HandleFunc("/start_game", StartGameHandler)
+    http.HandleFunc("/shoot_ball", ShootBallHandler)
+
+    // Для запросов, связанных с пользователями
+    http.HandleFunc("/authenticate", AuthenticateHandler)
+    http.HandleFunc("/register", RegisterHandler)
 }
 
 func main() {
-    fmt.Println("Hello World")
-    err := database.InitDB()
-    if err != nil {
-        log.Fatalf("Failed to connect to the database: %v", err)
-    } else {
-            log.Fatalf("Success:")
-
-    }
-
-    // Set up HTTP routes
-//     setupRoutes()
-
-    // Start the HTTP server
-    fmt.Println("Server is running on port 8080")
+    fmt.Println("Сервер запущен на порте 8080")
+    setupRoutes()
     log.Fatal(http.ListenAndServe(":8080", nil))
 }
-

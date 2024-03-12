@@ -1,36 +1,43 @@
-// database/database.go
 package database
 
 import (
     "database/sql"
     "fmt"
-    _ "github.com/go-sql-driver/mysql" // Import MySQL driver
+    "log"
+
+    _ "github.com/go-sql-driver/mysql"
 )
 
-// DB holds the connection pool to the MySQL database
-var DB *sql.DB
+var db *sql.DB
 
-// InitDB initializes the database connection
-func InitDB() error {
-    // Set up the connection string
-    connectionString := "root:password@tcp(localhost:3306)/rabbit_game"
+func InitDB() {
+    var err error
+    dsn := "root:password@tcp(localhost:3306)/rabbit_game"
 
-    // Open a connection to the database
-    db, err := sql.Open("mysql", connectionString)
+    db, err = sql.Open("mysql", dsn)
     if err != nil {
-        return err
+        log.Fatal(err)
     }
 
-    // Check if the connection is successful
     err = db.Ping()
     if err != nil {
-        return err
+        log.Fatal(err)
     }
-
     fmt.Println("Connected to the database")
+}
 
-    // Assign the database connection to the global variable
-    DB = db
+func Query(statement string) (*sql.Rows, error) {
+    rows, err := db.Query(statement)
+    if err != nil {
+        log.Fatal(err)
+    }
+    return rows, err
+}
 
-    return nil
+func Exec(statement string, args ...interface{}) (sql.Result, error) {
+    res, err := db.Exec(statement, args...)
+    if err != nil {
+        log.Fatal(err)
+    }
+    return res, err
 }

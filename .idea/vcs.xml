@@ -2,5 +2,26 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/filippo.io/edwards25519" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/github.com/go-sql-driver/mysql" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/github.com/gorilla/websocket" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/github.com/hashicorp/go-uuid" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/github.com/jcmturner/aescts" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/github.com/jcmturner/dnsutils" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/github.com/jcmturner/gofork" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/github.com/jcmturner/goidentity" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/github.com/jcmturner/gokrb5" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/github.com/jcmturner/rpc" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/github.com/lib/pq" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/golang.org/x/crypto" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/golang.org/x/net" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/golang.org/x/sys" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/golang.org/x/term" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/golang.org/x/text" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/gopkg.in/jcmturner/aescts.v1" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/gopkg.in/jcmturner/dnsutils.v1" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/gopkg.in/jcmturner/goidentity.v3" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/gopkg.in/jcmturner/gokrb5.v7" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/gopkg.in/jcmturner/rpc.v1" vcs="Git" />
   </component>
 </project>
